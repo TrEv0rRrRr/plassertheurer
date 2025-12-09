@@ -29,9 +29,13 @@ public class MaintenanceTaskRequiredEventHandler {
     boolean isOutOfRange = event.getMeasuredValue() > upperLimit;
 
     String priority = isOutOfRange ? "HIGH" : "MEDIUM";
+
+    // TODO: Agregar condición para la fecha según el pdf
     LocalDate inspectedAt = LocalDate.now();
     LocalDate dueDate = inspectedAt.plusDays(3);
-    String description = "XD";
+
+    // TODO: Crear descripción
+    String description = "descripción";
 
     service.createMaintenanceTask(
         event.getVehicleCode(),
