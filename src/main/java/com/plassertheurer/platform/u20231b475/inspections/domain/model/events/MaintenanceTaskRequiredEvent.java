@@ -8,11 +8,14 @@ import lombok.Getter;
 public class MaintenanceTaskRequiredEvent extends ApplicationEvent {
   private Long inspectionRecordId;
   private Double measuredValue;
+  private Double maxAcceptableValue;
 
-  public MaintenanceTaskRequiredEvent(Object source, Long inspectionRecordId, Double measuredValue) {
+  public MaintenanceTaskRequiredEvent(Object source, Long inspectionRecordId, Double measuredValue,
+      Double maxAcceptableValue) {
     super(source);
 
     this.inspectionRecordId = inspectionRecordId;
     this.measuredValue = measuredValue;
+    this.maxAcceptableValue = maxAcceptableValue;
   }
 }
