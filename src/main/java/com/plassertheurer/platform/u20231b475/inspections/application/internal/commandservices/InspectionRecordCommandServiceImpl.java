@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.plassertheurer.platform.u20231b475.inspections.application.internal.outboundservices.acl.ExternalRegulationsService;
 import com.plassertheurer.platform.u20231b475.inspections.domain.model.aggregates.InspectionRecord;
 import com.plassertheurer.platform.u20231b475.inspections.domain.model.commands.CreateInspectionRecordCommand;
 import com.plassertheurer.platform.u20231b475.inspections.domain.model.valueobjects.VehicleCode;
@@ -13,9 +14,12 @@ import com.plassertheurer.platform.u20231b475.inspections.infrastructure.persist
 @Service
 public class InspectionRecordCommandServiceImpl implements InspectionRecordCommandService {
   private final InspectionRecordRepository repo;
+  private final ExternalRegulationsService regulationsService;
 
-  public InspectionRecordCommandServiceImpl(InspectionRecordRepository repo) {
+  public InspectionRecordCommandServiceImpl(InspectionRecordRepository repo,
+      ExternalRegulationsService regulationsService) {
     this.repo = repo;
+    this.regulationsService = regulationsService;
   }
 
   @Override
@@ -25,5 +29,22 @@ public class InspectionRecordCommandServiceImpl implements InspectionRecordComma
     if (repo.existsByVehicleCodeAndInspectedAt(vehicleCode, command.inspectedAt())) {
       throw new IllegalArgumentException("An inspection record for the given properties already exists.");
     }
+
+    var safetyStandard = regulationsService.fetchByParameter(command.parameter())
+        .orElseThrow(() -> new IllegalArgumentException("Safety standard not found"));
+
+    boolean isOutOfRange = command.measuredValue() > safetyStandard.maxAcceptableValue()
+        || command.measuredValue() < safetyStandard.minAcceptableValue();
+
+    var inspectionRecord = new InspectionRecord(command);
+
+    repo.save(inspectionRecord);
+
+    if (isOutOfRange) {
+      inspectionRecord.maintenanceTaskRequired(safetyStandard.maxAcceptableValue());
+      repo.save(inspectionRecord);
+    }
+
+    return Optional.of(inspectionRecord);
   }
 }
