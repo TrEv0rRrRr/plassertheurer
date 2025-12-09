@@ -6,7 +6,6 @@ import com.plassertheurer.platform.u20231b475.regulations.interfaces.rest.resour
 public class SafetyStandardResourceFromEntityAssembler {
   public static SafetyStandardResource toResourceFromEntity(SafetyStandard entity) {
     return new SafetyStandardResource(
-        entity.getParameter(),
         entity.getMinAcceptableValue(),
         entity.getMaxAcceptableValue());
   }
