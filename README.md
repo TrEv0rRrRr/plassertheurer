@@ -98,7 +98,7 @@ Especifica que al momento de registrar un inspection record, si el `measuredValu
 
 ## MaintenanceTaskRequiredEvent
 
-El evento debe registrar una maintenance task para el `vehicleCode`, con `HIGH` como `priority` **si el desvío es >10% del rango permitido**, caso contrario `MEDIUM` como `priority`, `inspectedAt` + 3 días como `dueDate` y `OPEN` como `state`.
+El evento debe registrar una maintenance task para el `vehicleCode`, con `HIGH` como `priority` **si el `measuredValue` es >10% del rango permitido**, caso contrario `MEDIUM` como `priority`, `inspectedAt` + 3 días como `dueDate` y `OPEN` como `state`.
 
 # Casos de prueba
 
