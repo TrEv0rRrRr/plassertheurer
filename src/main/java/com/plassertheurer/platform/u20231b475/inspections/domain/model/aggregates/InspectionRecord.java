@@ -52,7 +52,7 @@ public class InspectionRecord extends AuditableAbstractAggregateRoot<InspectionR
     this.inspectedAt = command.inspectedAt();
   }
 
-  public void maintenanceTaskRequired() {
-    this.registerEvent(new MaintenanceTaskRequiredEvent(this, getId(), measuredValue));
+  public void maintenanceTaskRequired(Double maxAcceptableValue) {
+    this.registerEvent(new MaintenanceTaskRequiredEvent(this, getId(), measuredValue, maxAcceptableValue));
   }
 }
