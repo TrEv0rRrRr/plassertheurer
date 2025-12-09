@@ -34,7 +34,7 @@ public class OpenApiConfiguration {
                         .license(new License().name("Apache 2.0")
                                 .url("https://springdoc.org")))
                 .externalDocs(new ExternalDocumentation()
-                        .description("Innovyze REST API"));
+                        .description("Plasser & Theurer REST API"));
         return openApi;
     }
 }
