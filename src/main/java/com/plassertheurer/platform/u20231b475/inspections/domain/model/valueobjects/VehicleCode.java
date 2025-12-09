@@ -2,11 +2,13 @@ package com.plassertheurer.platform.u20231b475.inspections.domain.model.valueobj
 
 import java.util.UUID;
 
+import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotBlank;
 
 /**
  * This VO represents the vehicle code. It's the business unique identifier.
  */
+@Embeddable
 public record VehicleCode(@NotBlank(message = "The vehicle code is required") String vehicleCode) {
   public VehicleCode {
     try {
