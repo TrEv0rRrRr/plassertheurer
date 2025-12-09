@@ -3,6 +3,7 @@ package com.plassertheurer.platform.u20231b475.inspections.domain.model.aggregat
 import java.time.LocalDateTime;
 
 import com.plassertheurer.platform.u20231b475.inspections.domain.model.commands.CreateInspectionRecordCommand;
+import com.plassertheurer.platform.u20231b475.inspections.domain.model.events.MaintenanceTaskRequiredEvent;
 import com.plassertheurer.platform.u20231b475.inspections.domain.model.valueobjects.InspectionState;
 import com.plassertheurer.platform.u20231b475.inspections.domain.model.valueobjects.VehicleCode;
 import com.plassertheurer.platform.u20231b475.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
@@ -49,5 +50,9 @@ public class InspectionRecord extends AuditableAbstractAggregateRoot<InspectionR
     this.measuredValue = command.measuredValue();
     this.state = command.state();
     this.inspectedAt = command.inspectedAt();
+  }
+
+  public void maintenanceTaskRequired() {
+    this.registerEvent(new MaintenanceTaskRequiredEvent(this, getId(), measuredValue));
   }
 }
