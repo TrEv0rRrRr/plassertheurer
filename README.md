@@ -38,7 +38,8 @@ Requiere que su información sea poblada en la base de datos de forma automátic
 - `id` (Long, Primary Key, Autogenerado)
 - `vehicleCode` (identificador del negocio, embedded type Obligatorio, No vacío, solo puede contener un valor UUID válido)
 - `infrastructureType` (String, obligatorio, no vacío)
-- `parameter` (String, obligatorio, no vacío), measuredValue (Double, obligatorio)
+- `parameter` (String, obligatorio, no vacío),
+- `measuredValue` (Double, obligatorio)
 - `state` (InspectionState enumeration, obligatorio, no nulo)
 - `inspectedAt` (LocalDateTime, obligatorio, no nulo)
 
