@@ -14,7 +14,7 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.PastOrPresent;
 import lombok.Getter;
 
 @Entity
@@ -36,7 +36,7 @@ public class InspectionRecord extends AuditableAbstractAggregateRoot<InspectionR
   private InspectionState state;
 
   @NotNull(message = "The inspection date is required")
-  @Past
+  @PastOrPresent
   private LocalDateTime inspectedAt;
 
   public InspectionRecord() {
