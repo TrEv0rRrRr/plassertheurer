@@ -41,7 +41,8 @@ public class InspectionRecordCommandServiceImpl implements InspectionRecordComma
     repo.save(inspectionRecord);
 
     if (isOutOfRange) {
-      inspectionRecord.maintenanceTaskRequired(safetyStandard.maxAcceptableValue());
+      inspectionRecord.maintenanceTaskRequired(safetyStandard.minAcceptableValue(),
+          safetyStandard.maxAcceptableValue());
       repo.save(inspectionRecord);
     }
 
