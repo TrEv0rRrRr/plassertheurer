@@ -8,16 +8,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.plassertheurer.platform.u20231b475.inspections.application.internal.outboundservices.acl.ExternalMonitoringService;
 import com.plassertheurer.platform.u20231b475.inspections.domain.model.events.MaintenanceTaskRequiredEvent;
-// import com.plassertheurer.platform.u20231b475.inspections.infrastructure.persistence.jpa.repositories.InspectionRecordRepository;
 
 @Service
 public class MaintenanceTaskRequiredEventHandler {
   private final ExternalMonitoringService service;
-  // private final InspectionRecordRepository repo;
 
   public MaintenanceTaskRequiredEventHandler(ExternalMonitoringService service) {
     this.service = service;
-    // this.repo = repo;
   }
 
   @EventListener
@@ -27,15 +24,19 @@ public class MaintenanceTaskRequiredEventHandler {
     double tolerance = range * 0.10;
     double upperLimit = event.getMaxAcceptableValue() + tolerance;
     boolean isOutOfRange = event.getMeasuredValue() > upperLimit;
+    LocalDate inspectedAt = event.getInspectedAt().toLocalDate();
 
     String priority = isOutOfRange ? "HIGH" : "MEDIUM";
+    String state = isOutOfRange ? "IN_PROGRESS" : "OPEN";
+    LocalDate dueDate = isOutOfRange ? inspectedAt.plusDays(1) : inspectedAt.plusDays(3);
 
-    // TODO: Agregar condición para la fecha según el pdf
-    LocalDate inspectedAt = LocalDate.now();
-    LocalDate dueDate = inspectedAt.plusDays(3);
-
-    // TODO: Crear descripción
-    String description = "descripción";
+    String description = String.format(
+        "Maintenance required for %s: %s measured %.2f (acceptable range: %.2f - %.2f)",
+        event.getInfrastructureType(),
+        event.getParameter(),
+        event.getMeasuredValue(),
+        event.getMinAcceptableValue(),
+        event.getMaxAcceptableValue());
 
     service.createMaintenanceTask(
         event.getVehicleCode(),
@@ -43,6 +44,6 @@ public class MaintenanceTaskRequiredEventHandler {
         description,
         priority,
         dueDate,
-        "OPEN");
+        state);
   }
 }
