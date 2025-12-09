@@ -102,6 +102,49 @@ El evento debe registrar una maintenance task para el `vehicleCode`, con `HIGH` 
 
 # Casos de prueba
 
+## Valor dentro del rango
+
+```json
+{
+  "vehicleCode": "550e8400-e29b-41d4-a716-446655440000",
+  "infrastructureType": "TRACK",
+  "parameter": "rail_alignment",
+  "measuredValue": 1.5,
+  "state": "ACCEPTED",
+  "inspectedAt": "2025-12-09T10:00:00"
+}
+```
+
+## Valor fuera del rango **(desvío <10%)**
+
+<!-- (rango: -2.0 a 2.0, desvío de 0.3, 7.5%) -->
+
+```json
+{
+  "vehicleCode": "550e8400-e29b-41d4-a716-446655440001",
+  "infrastructureType": "TRACK",
+  "parameter": "rail_alignment",
+  "measuredValue": 2.3,
+  "state": "FLAGGED",
+  "inspectedAt": "2025-12-09T10:00:00"
+}
+```
+
+## Valor fuera del rango **(desvío >10%)**
+
+<!-- (rango: 0.0 a 1.5, desvío >10%) -->
+
+```json
+{
+  "vehicleCode": "550e8400-e29b-41d4-a716-446655440002",
+  "infrastructureType": "BRIDGE",
+  "parameter": "vibration_level",
+  "measuredValue": 2.0,
+  "state": "REJECTED",
+  "inspectedAt": "2025-12-09T10:00:00"
+}
+```
+
 # Endpoints
 
 ## Inspection Records Endpoint `(/api/v1/inspection-records)`
