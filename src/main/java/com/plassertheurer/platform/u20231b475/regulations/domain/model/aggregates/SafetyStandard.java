@@ -1,9 +1,9 @@
 package com.plassertheurer.platform.u20231b475.regulations.domain.model.aggregates;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -13,6 +13,7 @@ import lombok.Getter;
  * 
  * @author Valentino Solis
  */
+@Entity
 public class SafetyStandard {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,12 +28,10 @@ public class SafetyStandard {
   private String parameter;
 
   @Getter
-  @Min(0)
   @NotNull(message = "The min acceptable value is required")
   private Double minAcceptableValue;
 
   @Getter
-  @Min(0)
   @NotNull(message = "The max acceptable value is required")
   private Double maxAcceptableValue;
 
