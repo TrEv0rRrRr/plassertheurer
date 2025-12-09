@@ -43,6 +43,14 @@ Requiere que su información sea poblada en la base de datos de forma automátic
 - `state` (InspectionState enumeration, obligatorio, no nulo)
 - `inspectedAt` (LocalDateTime, obligatorio, no nulo)
 
+#### InspectionState enum
+
+| id  | name     |
+| --- | -------- |
+| 0   | ACCEPTED |
+| 1   | FLAGGED  |
+| 2   | REJECTED |
+
 ### Nota
 
 Especifica que al momento de registrar un inspection record, si el `measuredValue` está fuera del rango aceptable para el `parámetro`, la inspección se registra normalmente, pero se debe emitir un evento `MaintenanceTaskRequiredEvent`.
@@ -61,6 +69,23 @@ Especifica que al momento de registrar un inspection record, si el `measuredValu
 - `priority` (TaskPriority enumeration, obligatorio, no nulo)
 - `dueDate` (LocalDate, obligatorio, no nulo)
 - `state` (TaskState enumeration, obligatorio, no nulo)
+
+#### TaskState enum
+
+| id  | name        |
+| --- | ----------- |
+| 0   | OPEN        |
+| 1   | IN_PROGRESS |
+| 2   | COMPLETED   |
+| 3   | CANCELLED   |
+
+#### TaskPriority enum
+
+| id  | name   |
+| --- | ------ |
+| 0   | LOW    |
+| 1   | MEDIUM |
+| 2   | HIGH   |
 
 # Business Rules
 
