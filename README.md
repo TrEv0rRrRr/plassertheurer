@@ -91,7 +91,7 @@ Especifica que al momento de registrar un inspection record, si el `measuredValu
 
 - Especifica que el atributo `vehicleCode` debe ser embedded y solo puede contener un valor UUID válido, que debe proporcionarse (no autogenerarse) al momento de registrarse el inspection record. [x]
 - Especifica que `vehicleCode` se considera un identificador interno del negocio. [x]
-- No se debe registrar en la base de datos dos inspection records con el mismo valor de `vehicleCode` en el mismo día.
+- No se debe registrar en la base de datos dos inspection records con el mismo valor de `vehicleCode` en el mismo día. [x]
 - Requiere que el valor de `inspectedAt` no sea mayor que la fecha actual. [x]
 
 # Domain Events
