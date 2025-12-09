@@ -54,7 +54,8 @@ public class InspectionRecord extends AuditableAbstractAggregateRoot<InspectionR
 
   public void maintenanceTaskRequired(Double minAcceptableValue, Double maxAcceptableValue) {
     this.registerEvent(
-        new MaintenanceTaskRequiredEvent(this, getId(), measuredValue, minAcceptableValue, maxAcceptableValue,
-            vehicleCode.vehicleCode(), parameter));
+        new MaintenanceTaskRequiredEvent(this, getId(), measuredValue, minAcceptableValue,
+            maxAcceptableValue,
+            vehicleCode.vehicleCode(), parameter, inspectedAt, infrastructureType));
   }
 }
